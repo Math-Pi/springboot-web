@@ -3,6 +3,7 @@ package com.example.web.controller;
 import com.example.web.dao.UserDao;
 import com.example.web.util.ConfigProperties;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,17 +11,19 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.web.bean.User;
 
 import javax.security.auth.login.Configuration;
+import java.util.Map;
 
 
 //用户Controller类
 @RestController
 @RequestMapping("/user")
 public class UserController {
-
     @Autowired
     private UserDao userDao;
     @Autowired
     private ConfigProperties configProperties;
+    @Autowired
+    FilterRegistrationBean registration;
     @RequestMapping("/getUser")
     @Cacheable(value = "user-key")
     public User getUser() {
@@ -37,5 +40,13 @@ public class UserController {
         String description = configProperties.getDescription();
         result.append(title).append(",").append(description);
         return result.toString();
+    }
+    /**
+     * 返回过滤器初始化参数
+     */
+    @RequestMapping("/parameters")
+    public Map<String, String> getName() {
+        Map<String, String> initParameters = registration.getInitParameters();
+        return initParameters;
     }
 }

@@ -7,13 +7,13 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = "config")
 public class ConfigProperties {
-    @Value("${config.title}")
+    /*@Value("${config.title}")
     private String title;
     @Value("${config.description}")
-    private String description;
-    /*private String title;
-
     private String description;*/
+    private String title;
+
+    private String description;
 
     public String getTitle() {
         return title;

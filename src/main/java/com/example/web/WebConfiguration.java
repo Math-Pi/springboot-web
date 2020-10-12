@@ -19,11 +19,11 @@ public class WebConfiguration {
     @Bean
     public FilterRegistrationBean testFilterRegistration() {
         FilterRegistrationBean registration = new FilterRegistrationBean();
-        registration.setFilter(new MyFilter());
-        registration.addUrlPatterns("/*");
-        registration.addInitParameter("paramName", "paramValue");
+        registration.setFilter(new MyFilter()); //添加过滤器
+        registration.addUrlPatterns("/*");      //设置过滤路径
+        registration.addInitParameter("name", "Filter");//添加默认参数
         registration.setName("MyFilter");
-        registration.setOrder(1);//执行的顺序
+        registration.setOrder(1);   //执行的顺序
         return registration;
     }
 }
